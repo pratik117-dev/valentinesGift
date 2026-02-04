@@ -47,6 +47,7 @@ inset:0;
 pointer-events:none;
 overflow:hidden;
 z-index:1;
+animation:bounce 2s ease-in-out infinite
 }
 
 .rose{
@@ -107,7 +108,8 @@ filter:drop-shadow(0 8px 24px rgba(0,0,0,0.18));
 .corner-rose{
 position:fixed;
 z-index:5;
-opacity:0.6;
+opacity:1;
+animation:bounce 2s ease-in-out infinite
 }
 
 .corner-rose.top-left{
@@ -129,8 +131,8 @@ transform:rotate(15deg);
 }
 
 .corner-rose svg{
-width:80px;
-height:80px;
+width:100px;
+height:100px;
 filter:drop-shadow(0 3px 10px rgba(255,107,157,0.4));
 }
 
@@ -195,6 +197,7 @@ margin-bottom:2.5rem;
 .highlight{
 font-family:'Dancing Script',cursive;
 background:linear-gradient(45deg,#ff6b9d,#c2185b);
+background-clip:text;
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
@@ -242,55 +245,341 @@ z-index:999;
 }
 
 /* ================= SUCCESS SCREEN ================= */
-.success-screen{
-position:fixed;
-inset:0;
-background:linear-gradient(135deg,#ff6b9d,#8b0f47);
-display:none;
-align-items:center;
-justify-content:center;
-z-index:100;
+.success-screen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #ff6b9d, #8b0f47);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  overflow: hidden;
 }
 
-.success-screen.active{display:flex}
-
-.success-content{
-color:#fff;
-max-width:750px;
-width:90%;
-text-align:center;
-animation:zoom 1s ease;
+.success-screen.active {
+  display: flex;
 }
 
-@keyframes zoom{
-from{transform:scale(.3);opacity:0}
-to{transform:scale(1);opacity:1}
+/* Decorative Elements */
+.success-screen .deco-bear-left {
+  position: absolute;
+  font-size: 120px;
+  top: 8%;
+  left: 5%;
+  opacity: 0.2;
+  animation: float 6s ease-in-out infinite;
+  z-index: 1;
 }
 
-.question-step{display:none}
-.question-step.active{display:block}
-
-.step-buttons{
-display:flex;
-gap:2rem;
-justify-content:center;
-flex-wrap:wrap;
-margin-top:1.5rem;
+.success-screen .deco-bear-right {
+  position: absolute;
+  font-size: 100px;
+  top: 45%;
+  right: 3%;
+  opacity: 0.25;
+  animation: float 7s ease-in-out infinite 2s;
+  z-index: 1;
 }
 
-.step-button{
-padding:1.2rem 3rem;
-border-radius:50px;
-font-size:1.2rem;
-border:none;
-cursor:pointer;
-font-weight:700;
+.success-screen .deco-gift-left {
+  position: absolute;
+  font-size: 100px;
+  bottom: 25%;
+  left: 4%;
+  opacity: 0.3;
+  animation: float 6s ease-in-out infinite 1.5s;
+  z-index: 1;
 }
 
-.step-button.no-hover.dodging{
-position:fixed;
-z-index:1000;
+.success-screen .deco-gift-right {
+  position: absolute;
+  font-size: 100px;
+  bottom: 12%;
+  right: 6%;
+  opacity: 0.28;
+  animation: float 6.5s ease-in-out infinite 2.5s;
+  z-index: 1;
 }
+
+.success-screen .deco-roses-top {
+  position: absolute;
+  font-size: 400px;
+  top: 18%;
+  right: 12%;
+  opacity: 0.50;
+  animation: float 5.5s ease-in-out infinite 0.5s;
+  z-index: 1;
+}
+
+.success-screen .deco-roses-bottom {
+  position: absolute;
+  font-size: 300px;
+  bottom: 15%;
+  left: 10%;
+  opacity: 0.22;
+  animation: float 5s ease-in-out infinite 1s;
+  z-index: 1;
+}
+
+.success-screen .deco-heart-1 {
+  position: absolute;
+  font-size: 200px;
+  top: 12%;
+  left: 18%;
+  opacity: 0.18;
+  animation: heartbeat 2s ease-in-out infinite;
+  z-index: 1;
+}
+
+.success-screen .deco-heart-2 {
+  position: absolute;
+  font-size: 100px;
+  bottom: 30%;
+  right: 16%;
+  opacity: 0.2;
+  animation: heartbeat 2s ease-in-out infinite 1s;
+  z-index: 1;
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+/* Heartbeat Animation */
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.15);
+  }
+  50% {
+    transform: scale(1);
+  }
+  75% {
+    transform: scale(1.08);
+  }
+}
+
+.success-content {
+  color: #fff;
+  max-width: 750px;
+  width: 90%;
+  text-align: center;
+  animation: zoom 1s ease;
+  position: relative;
+  z-index: 10;
+}
+
+@keyframes zoom {
+  from {
+    transform: scale(.3);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.question-step {
+  display: none;
+}
+
+.question-step.active {
+  display: block;
+}
+
+.question-step {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background: linear-gradient(135deg, #e366ea 0%, #cc4db9 100%);
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.question-step h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  letter-spacing: 0.5px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.question-step p {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: 400;
+  color: #f0f0f0;
+  letter-spacing: 0.3px;
+}
+
+.step-buttons {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.step-button {
+  padding: 1.2rem 3rem;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  background: #ffffff;
+  color: #e366ea;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.5px;
+}
+
+.step-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  background: #f8f9ff;
+}
+
+.step-button.no-hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.step-button.no-hover:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.step-button.no-hover.dodging {
+  position: fixed;
+  z-index: 1000;
+}
+
+/* Final Message Styling */
+.final-message {
+  max-width: 650px;
+  margin: 2rem auto;
+  padding: 3rem;
+  background: linear-gradient(135deg, #ffffff15 0%, #ffffff10 100%);
+  backdrop-filter: blur(10px);
+  border-radius: 25px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.final-message::before {
+  content: '💕';
+  position: absolute;
+  font-size: 250px;
+  top: -70px;
+  right: -70px;
+  opacity: 0.08;
+  z-index: 0;
+}
+
+.final-message h2 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1;
+}
+
+.final-message > p {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+  font-style: italic;
+  position: relative;
+  z-index: 1;
+}
+
+.details-box {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 2rem;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  text-align: left;
+  position: relative;
+  z-index: 1;
+}
+
+.details-box p {
+  font-size: 1.15rem;
+  margin: 1.2rem 0;
+  line-height: 1.7;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+}
+
+.details-box strong {
+  font-weight: 700;
+  margin-right: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .question-step h2 {
+    font-size: 2rem;
+  }
+  
+  .step-button {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+  
+  .success-screen .deco-bear-left,
+  .success-screen .deco-bear-right {
+    font-size: 70px;
+  }
+  
+  .success-screen .deco-gift-left,
+  .success-screen .deco-gift-right,
+  .success-screen .deco-roses-top,
+  .success-screen .deco-roses-bottom {
+    font-size: 60px;
+  }
+  
+  .success-screen .deco-heart-1,
+  .success-screen .deco-heart-2 {
+    font-size: 40px;
+  }
+  
+  .final-message {
+    padding: 2rem;
+  }
+  
+  .final-message h2 {
+    font-size: 2rem;
+  }
+  
+  .final-message > p {
+    font-size: 1.1rem;
+  }
+}
+
 
 /* ================= CONTROLS ================= */
 .controls{
@@ -476,7 +765,7 @@ height:50px;
 <div class="music-indicator" id="musicIndicator">♫ Music Playing ♫</div>
 
 <audio id="backgroundMusic" loop>
-<source src="https://cdn.pixabay.com/audio/2023/02/14/audio_9f77a4dbd2.mp3">
+     <source src="love.mp3" type="audio/mpeg">
 </audio>
 
 <!-- MAIN -->
@@ -484,7 +773,7 @@ height:50px;
 <h1>
 Hey...<br>
 <span class="highlight">Will you be my Valentine?</span><br>
-<span class="name-text" id="nameText">Miss Mysterious</span> ✨❤️
+<span class="name-text" id="nameText">Dear Priyanshu</span> ✨❤️
 </h1>
 
 <div class="button-container">
@@ -495,16 +784,25 @@ Hey...<br>
 
 <!-- SUCCESS -->
 <div class="success-screen" id="successScreen">
+    <div class="deco-bear-left">🧸</div>
+    <div class="deco-bear-right">🧸</div>
+    <div class="deco-gift-left">🎁</div>
+    <div class="deco-gift-right">✨</div>
+    <div class="deco-roses-top">🌹</div>
+    <div class="deco-roses-bottom">🌹</div>
+    <div class="deco-heart-1">💖</div>
+    <div class="deco-heart-2">💝</div>
 <div class="success-content">
 
-<div class="question-step active" id="step1">
-<h2>Yes yes yesssssssss ✨❤️🎊🙌<</h2>
+<div class="question-step active " id="step1">
+<h2>Yes yes yesssssssss ✨❤️🎊🙌</h2>
 <p>You said yes, which means you're signing up for late-night talks, random surprises, and me genuinely trying to make you smile every single day. Can you handle that level of cuteness?</p>
 <div class="step-buttons">
 <button class="step-button" onclick="nextStep(2)">That's literally all I want 🥺🥺</button>
 <button class="step-button no-hover" id="noBtn1">Wait, that's adorable but scary 😅</button>
 </div>
 </div>
+
 
 <div class="question-step" id="step2">
 <h2>You're making me blush... 😊</h2>
@@ -525,18 +823,35 @@ Hey...<br>
 </div>
 
 <div class="final-message" id="step4">
-                <h2>I knew it would be you 💫</h2>
-                <p>Something about this just feels right, you know? Like the universe was waiting for us to figure it out. (I mean it.)</p>
-                <div class="details-box">
-                    <p>📅 <strong>When:</strong> Someday</p>
-                    <p>🕐 <strong>Time:</strong> SomeTime</p>
-                    <p>📍 <strong>Where:</strong> SomeWhere Don't know the place</p>
-                    <p>💭 <strong>The Vibe:</strong> Romantic 🥰</p>
-                    <p>💕 <strong>Fair Warning:</strong> I'm probably gonna look at you like you're the only person in the room</p>
-                    <p>🌹 <strong>Promise:</strong> I will Love you forever and ever 💖</p>
-                </div>
-            </div>
-    </div>
+<h2>I knew it would be you 💫</h2>
+<p>Something about this just feels right, you know? Like the universe was waiting for us to figure it out. (I mean it.)</p>
+        <div class="details-box">
+                <p>📅 <strong>When:</strong> Someday</p>
+                <p>🕐 <strong>Time:</strong> SomeTime</p>
+                <p>📍 <strong>Where:</strong> SomeWhere Don't know the place</p>
+                <p>💭 <strong>The Vibe:</strong> Romantic 🥰</p>
+                <p>💕 <strong>Fair Warning:</strong> I'm probably gonna look at you like you're the only person in the room</p>
+                <p>🌹 <strong>Promise:</strong> I will Love you forever and ever 💖</p>
+         </div>
+         <div class="step-buttons">
+            <button class="step-button" onclick="nextStep(5)">I love you too 💕</button>
+            <button class="step-button no-hover" id="noBtn4">No😡</button>
+        </div>
+        </div>
+
+<div class="final-message" id="step5">
+<h2>Call ME:</h2>
+<p>9849507462</p>
+<div class="step-buttons">
+<button class="step-button" onclick="nextStep(6)">sure ❤️</button>
+<button class="step-button no-hover" id="noBtn5">No 😡</button>
+</div>
+</div>
+<div class="final-message" id="step6">
+   <h2>Bye Bye! See you soon!</h2>
+   <p>love you ❤️</p>
+</div>
+</div>
 
 </div>
 
@@ -629,7 +944,7 @@ setTimeout(()=>success.classList.add("active"),500);
 
 /* ================= STEPS ================= */
 function nextStep(n){
-document.querySelectorAll(".question-step").forEach(s=>s.classList.remove("active"));
+document.querySelectorAll(".question-step, .final-message").forEach(s=>s.classList.remove("active"));
 const step=document.getElementById("step"+n);
 if(step)step.classList.add("active");
 heartBurst(innerWidth/2,innerHeight/2);
@@ -657,6 +972,8 @@ setupDodge("noBtn");
 setupDodge("noBtn1");
 setupDodge("noBtn2");
 setupDodge("noBtn3");
+setupDodge("noBtn4");
+setupDodge("noBtn5");
 </script>
 
 </body>
